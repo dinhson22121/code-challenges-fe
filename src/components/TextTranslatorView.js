@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { translate } from '@vitalets/google-translate-api';
 
 const Container = styled.div`
   max-width: 600px;
@@ -40,19 +39,21 @@ const TranslationContainer = styled.div`
 const TextTranslatorView = () => {
   const [text, setText] = useState('');
   const [translation, setTranslation] = useState('');
-  let URL_ENDP = 'http://localhost:8081/api/v1';
+  const URL_ENDP = 'http://localhost:8081/api/v1';
   const handleTextChange = (e) => {
     setText(e.target.value);
   };
 
   const handleTranslateText = async () => {
     try {
-      // const response = await axios.post('https://libretranslate.com/translate',
-      // { text:text , sourceLanguage:'en',targetLanguage:'de'});
-      const { response } = await translate(text, { to: 'de' });
-      console.log(text);
-      console.log(response);
-      setTranslation(response);
+      const response = await axios.post(URL_ENDP.concat('/translate'),
+        { text: text, sourceLanguage: 'en', targetLanguage: 'de' },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+      setTranslation(response.data.text);
     } catch (error) {
       console.error('Error translating text:', error);
     }
@@ -64,8 +65,7 @@ const TextTranslatorView = () => {
       <TextArea value={text} onChange={handleTextChange} />
       <Button onClick={handleTranslateText}>Translate Text</Button>
       <TranslationContainer>
-        <h2>Translation:</h2>
-        <p>{translation}</p>
+        <h2>Translation: {translation}</h2>
       </TranslationContainer>
     </Container>
   );

@@ -39,14 +39,19 @@ const ResultContainer = styled.div`
 const CodeInterpreterView = () => {
   const [code, setCode] = useState('');
   const [result, setResult] = useState('');
-
+  const URL_ENDP = 'http://localhost:8081/api/v1';
   const handleCodeChange = (e) => {
     setCode(e.target.value);
   };
 
   const handleSubmitCode = async () => {
     try {
-      const response = await axios.post('YOUR_CODE_EXECUTION_API_ENDPOINT', { code });
+      const response = await axios.post(URL_ENDP.concat('/complex-operation'), { body:code },{
+        headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+    console.log(code);
       setResult(response.data.result);
     } catch (error) {
       console.error('Error executing code:', error);
@@ -59,8 +64,7 @@ const CodeInterpreterView = () => {
       <TextArea value={code} onChange={handleCodeChange} />
       <Button onClick={handleSubmitCode}>Submit Code</Button>
       <ResultContainer>
-        <h2>Result:</h2>
-        <pre>{result}</pre>
+        <h2>Result: {result}</h2>
       </ResultContainer>
     </Container>
   );

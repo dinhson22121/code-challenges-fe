@@ -48,7 +48,7 @@ const ContextSubmissionAndExecution = () => {
   const [execution, setExecution] = useState('');
   const [resultEquivalent, setResultEquivalent] = useState('');
   const [resultExecution, setResultExecution] = useState('');
-  let URL_ENDP = 'http://localhost:8081/api/v1';
+  const URL_ENDP = 'http://localhost:8081/api/v1';
   const handleEquivalentChange = (e) => {
     setEquivalent(e.target.value);
   };

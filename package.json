@@ -8,6 +8,8 @@
     "@testing-library/user-event": "^13.5.0",
     "@vitalets/google-translate-api": "^9.2.0",
     "axios": "^1.6.6",
+    "google-translate-api": "^2.3.0",
+    "google-translate-api-browser": "^4.2.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
